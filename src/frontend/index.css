@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+
+    /* Peachy Brand Palette — OKLCH raw L C H */
+    /* Peach/coral primary */
+    --primary: 0.72 0.14 45;
+    --primary-foreground: 0.15 0.02 45;
+
+    /* Warm cream background */
+    --background: 0.97 0.02 80;
+    --foreground: 0.18 0.03 45;
+
+    /* Soft card surface */
+    --card: 0.99 0.01 70;
+    --card-foreground: 0.18 0.03 45;
+
+    /* Popover */
+    --popover: 0.99 0.01 70;
+    --popover-foreground: 0.18 0.03 45;
+
+    /* Secondary — light coral blush */
+    --secondary: 0.93 0.04 55;
+    --secondary-foreground: 0.25 0.04 45;
+
+    /* Muted */
+    --muted: 0.92 0.03 70;
+    --muted-foreground: 0.52 0.04 55;
+
+    /* Accent — vibrant coral */
+    --accent: 0.68 0.18 40;
+    --accent-foreground: 0.99 0 0;
+
+    /* Destructive */
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    /* Borders */
+    --border: 0.88 0.05 55;
+    --input: 0.88 0.05 55;
+    --ring: 0.72 0.14 45;
+
+    /* Charts */
+    --chart-1: 0.72 0.16 45;
+    --chart-2: 0.78 0.12 60;
+    --chart-3: 0.65 0.14 35;
+    --chart-4: 0.82 0.10 80;
+    --chart-5: 0.60 0.16 30;
+
+    /* Sidebar */
+    --sidebar: 0.97 0.02 80;
+    --sidebar-foreground: 0.18 0.03 45;
+    --sidebar-primary: 0.72 0.14 45;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.93 0.04 55;
+    --sidebar-accent-foreground: 0.25 0.04 45;
+    --sidebar-border: 0.88 0.05 55;
+    --sidebar-ring: 0.72 0.14 45;
+
+    /* Brand custom tokens */
+    --peach: 0.78 0.14 50;
+    --coral: 0.65 0.19 38;
+    --cream: 0.97 0.02 80;
+    --blush: 0.93 0.06 42;
+    --warm-dark: 0.18 0.04 45;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Cabinet Grotesk', 'Georgia', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Fraunces', 'Georgia', serif;
+  }
+
+  .font-body {
+    font-family: 'Cabinet Grotesk', 'Georgia', sans-serif;
+  }
+
+  .text-peach {
+    color: oklch(var(--peach));
+  }
+
+  .text-coral {
+    color: oklch(var(--coral));
+  }
+
+  .bg-peach {
+    background-color: oklch(var(--peach));
+  }
+
+  .bg-coral {
+    background-color: oklch(var(--coral));
+  }
+
+  .bg-blush {
+    background-color: oklch(var(--blush));
+  }
+
+  .bg-cream {
+    background-color: oklch(var(--cream));
+  }
+
+  .text-warm-dark {
+    color: oklch(var(--warm-dark));
+  }
+
+  /* Noise texture overlay */
+  .texture-noise {
+    position: relative;
+  }
+
+  .texture-noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+  }
+
+  /* Gradient mesh background */
+  .hero-gradient {
+    background: radial-gradient(
+        ellipse 80% 60% at 20% 30%,
+        oklch(0.92 0.07 50 / 0.6) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at 80% 70%,
+        oklch(0.88 0.09 40 / 0.4) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 50% 50%,
+        oklch(0.96 0.04 70 / 0.3) 0%,
+        transparent 70%
+      ),
+      oklch(var(--cream));
+  }
+
+  .collections-gradient {
+    background: radial-gradient(
+        ellipse 100% 80% at 0% 100%,
+        oklch(0.90 0.06 55 / 0.5) 0%,
+        transparent 50%
+      ),
+      oklch(0.95 0.025 65);
+  }
+
+  /* Peach orb decorative element */
+  .peach-orb {
+    background: radial-gradient(
+      circle,
+      oklch(0.84 0.14 52) 0%,
+      oklch(0.78 0.16 45) 40%,
+      oklch(0.70 0.18 38) 100%
+    );
+    border-radius: 50%;
+    filter: blur(1px);
+  }
+}
