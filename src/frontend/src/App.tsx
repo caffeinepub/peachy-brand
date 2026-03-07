@@ -1,8 +1,129 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
 import { ArrowDown, ShoppingBag, Sparkles } from "lucide-react";
 import { AnimatePresence, type Variants, motion } from "motion/react";
-import { SiInstagram, SiTiktok } from "react-icons/si";
+import { SiGoogle } from "react-icons/si";
+import { toast } from "sonner";
 import { useGetBrand } from "./hooks/useQueries";
+
+const CLOTHES = [
+  {
+    id: 1,
+    drop: 1,
+    name: "Peachy Tee",
+    description: "Soft oversized tee with a peach embroidery. So cozy!",
+    image: "/assets/generated/model-tshirt.dim_600x800.jpg",
+    badge: "Drop 1",
+  },
+  {
+    id: 2,
+    drop: 1,
+    name: "Orchard Sundress",
+    description:
+      "Light floral sundress with blossom print. Perfect for summer.",
+    image: "/assets/generated/model-dress.dim_600x800.jpg",
+    badge: "Drop 1",
+  },
+  {
+    id: 3,
+    drop: 2,
+    name: "Blossom Hoodie",
+    description: "Cozy peach hoodie for those chill days. Super warm!",
+    image: "/assets/generated/model-hoodie.dim_600x800.jpg",
+    badge: "Drop 2",
+  },
+  {
+    id: 4,
+    drop: 2,
+    name: "Wide-Leg Pants",
+    description: "Flowy wide-leg pants in soft blossom pink. Very comfy!",
+    image: "/assets/generated/model-pants.dim_600x800.jpg",
+    badge: "Drop 2",
+  },
+  {
+    id: 5,
+    drop: 3,
+    name: "Summer Crop Top",
+    description: "Peach crop top with a butterfly detail. Fresh summer look!",
+    image: "/assets/generated/model-croptop.dim_600x800.jpg",
+    badge: "Drop 3",
+  },
+  {
+    id: 6,
+    drop: 3,
+    name: "Peachy Shorts",
+    description: "Sun-embroidered shorts in soft yellow peach. Love them!",
+    image: "/assets/generated/model-shorts.dim_600x800.jpg",
+    badge: "Drop 3",
+  },
+];
+
+const KIDS = [
+  {
+    id: 1,
+    name: "Mini Peachy Tee",
+    description: "A tiny peach tee for the littlest fans. Super soft and cute!",
+    image: "/assets/generated/model-kids-tshirt.dim_600x800.jpg",
+    badge: "Kids",
+  },
+  {
+    id: 2,
+    name: "Kids Hoodie",
+    description: "Cozy peachy hoodie to keep little ones warm and stylish.",
+    image: "/assets/generated/model-kids-hoodie.dim_600x800.jpg",
+    badge: "Kids",
+  },
+  {
+    id: 3,
+    name: "Blossom Kids Dress",
+    description: "A flowy peach sundress for the sweetest summer days.",
+    image: "/assets/generated/model-kids-dress.dim_600x800.jpg",
+    badge: "Kids",
+  },
+];
+
+const TEENS = [
+  {
+    id: 1,
+    name: "Teen Peachy Tee",
+    description: "Oversized peach graphic tee, perfect for a casual cool look.",
+    image: "/assets/generated/model-teen-tshirt.dim_600x800.jpg",
+    badge: "Teens",
+  },
+  {
+    id: 2,
+    name: "Teen Crop Hoodie Set",
+    description: "Trendy crop hoodie and wide-leg sweatpants in soft peach.",
+    image: "/assets/generated/model-teen-hoodie.dim_600x800.jpg",
+    badge: "Teens",
+  },
+  {
+    id: 3,
+    name: "Peachy Mini Skirt",
+    description: "Flowy peach floral mini skirt for the cutest summer fits.",
+    image: "/assets/generated/model-teen-skirt.dim_600x800.jpg",
+    badge: "Teens",
+  },
+];
+
+const BELT_BAGS = [
+  {
+    id: 1,
+    name: "Peachy Belt Bag",
+    description:
+      "A cute peach belt bag with a gold buckle. Perfect for on-the-go!",
+    image: "/assets/generated/belt-bag-peach.dim_600x600.jpg",
+    badge: "Accessory",
+  },
+  {
+    id: 2,
+    name: "Blossom Belt Bag",
+    description: "Soft pink belt bag with blossom embroidery and gold zipper.",
+    image: "/assets/generated/belt-bag-pink.dim_600x600.jpg",
+    badge: "Accessory",
+  },
+];
 
 const COLLECTIONS = [
   {
@@ -45,6 +166,13 @@ const stagger: Variants = {
     },
   },
 };
+
+function handleCollectionClick(name: string) {
+  toast("Coming soon! 🍑", {
+    description: `${name} will be available when we launch. Check back soon!`,
+    duration: 4000,
+  });
+}
 
 export default function App() {
   const { data: brand, isLoading } = useGetBrand();
@@ -96,6 +224,27 @@ export default function App() {
               data-ocid="nav.collections.link"
             >
               Collections
+            </a>
+            <a
+              href="#kids"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.kids.link"
+            >
+              Kids
+            </a>
+            <a
+              href="#teens"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.teens.link"
+            >
+              Teens
+            </a>
+            <a
+              href="#beltbags"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.beltbags.link"
+            >
+              Belt Bags
             </a>
             <a
               href="#about"
@@ -208,16 +357,15 @@ export default function App() {
               custom={4}
               className="flex flex-col sm:flex-row gap-3 justify-center items-center"
             >
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-base shadow-peach hover:shadow-peach-lg hover:scale-105 active:scale-95 transition-all duration-200 cursor-default"
+              <a
+                href="#collections"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-base shadow-peach hover:shadow-peach-lg hover:scale-105 active:scale-95 transition-all duration-200"
                 data-ocid="hero.primary_button"
-                tabIndex={0}
-                aria-label="Shop coming soon"
+                aria-label="Shop Now"
               >
                 <ShoppingBag size={18} aria-hidden="true" />
                 Shop Now
-              </button>
+              </a>
               <a
                 href="#collections"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-primary/30 text-primary font-semibold text-base hover:bg-primary/10 hover:border-primary/50 transition-all duration-200"
@@ -295,8 +443,9 @@ export default function App() {
                   key={col.id}
                   variants={fadeUp}
                   custom={idx}
-                  className="group relative bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 cursor-default"
+                  className="group relative bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                   data-ocid={`collections.item.${col.id}`}
+                  onClick={() => handleCollectionClick(col.subtitle)}
                 >
                   {/* Card image area */}
                   <div
@@ -314,10 +463,7 @@ export default function App() {
                     </span>
                     {/* Coming Soon badge */}
                     <div className="absolute top-4 right-4">
-                      <Badge
-                        className="bg-white/70 text-foreground backdrop-blur-sm font-semibold text-xs border-0"
-                        data-ocid={`collections.item.${col.id}`}
-                      >
+                      <Badge className="bg-white/70 text-foreground backdrop-blur-sm font-semibold text-xs border-0">
                         New Drop
                       </Badge>
                     </div>
@@ -334,10 +480,367 @@ export default function App() {
                     <p className="mt-2 text-sm text-muted-foreground">
                       Available now — grab your peachy fit! ✨
                     </p>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCollectionClick(col.subtitle);
+                      }}
+                      className="mt-4 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-sm"
+                      data-ocid={`collections.shop.button.${col.id}`}
+                    >
+                      <ShoppingBag
+                        size={15}
+                        className="mr-2"
+                        aria-hidden="true"
+                      />
+                      Shop Now
+                    </Button>
                   </div>
                 </motion.article>
               ))}
             </motion.div>
+
+            {/* ─── Our Clothes ─── */}
+            <div data-ocid="clothes.section" className="mt-20">
+              {/* Sub-header */}
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  The Wardrobe
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                >
+                  Our Clothes
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  6 pieces. All peachy. All yours. 🍑
+                </motion.p>
+              </motion.div>
+
+              {/* Clothes Grid */}
+              <motion.div
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {CLOTHES.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`clothes.item.${item.id}`}
+                  >
+                    {/* Image area */}
+                    <div className="relative aspect-[3/4] bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      {/* Drop badge */}
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* Card body */}
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <Button
+                        onClick={() => handleCollectionClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`clothes.shop.button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Kids Section ─── */}
+            <div id="kids" data-ocid="kids.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Little Ones
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                >
+                  Kids 🧒
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Peachy fits for the little ones too! 🍑
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-2 sm:grid-cols-3 gap-5"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {KIDS.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`kids.item.${item.id}`}
+                  >
+                    <div className="relative aspect-[3/4] bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <Button
+                        onClick={() => handleCollectionClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`kids.shop.button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Teens Section ─── */}
+            <div id="teens" data-ocid="teens.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Teen Vibes
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                >
+                  Teens 🧡
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Trendy peachy fits made for teens! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-2 sm:grid-cols-3 gap-5"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {TEENS.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`teens.item.${item.id}`}
+                  >
+                    <div className="relative aspect-[3/4] bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <Button
+                        onClick={() => handleCollectionClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`teens.shop.button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Belt Bags Section ─── */}
+            <div id="beltbags" data-ocid="beltbags.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Accessories
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                >
+                  Belt Bags 👜
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Cute peachy belt bags for wherever you go! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {BELT_BAGS.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`beltbags.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <Button
+                        onClick={() => handleCollectionClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`beltbags.shop.button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -447,6 +950,9 @@ export default function App() {
         </section>
       </main>
 
+      {/* ─── Toast Notifications ─── */}
+      <Toaster position="bottom-center" richColors />
+
       {/* ─── Footer ─── */}
       <footer className="bg-foreground text-background py-14 px-6">
         <div className="max-w-6xl mx-auto">
@@ -496,6 +1002,33 @@ export default function App() {
                 </li>
                 <li>
                   <a
+                    href="#kids"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.kids.link"
+                  >
+                    Kids
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#teens"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.teens.link"
+                  >
+                    Teens
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#beltbags"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.beltbags.link"
+                  >
+                    Belt Bags
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="#about"
                     className="text-background/60 hover:text-background text-sm transition-colors"
                     data-ocid="footer.about.link"
@@ -509,31 +1042,23 @@ export default function App() {
             {/* Social */}
             <div>
               <p className="font-semibold text-background text-sm mb-4 uppercase tracking-widest">
-                Follow Along
+                Find Us
               </p>
               <div className="flex gap-3">
                 <a
-                  href="https://www.instagram.com"
+                  href="https://www.google.com/search?q=Peachy+Brand"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  aria-label="Follow on Instagram"
-                  data-ocid="footer.instagram.link"
+                  aria-label="Find us on Google"
+                  data-ocid="footer.google.link"
                 >
-                  <SiInstagram size={18} className="text-background/80" />
-                </a>
-                <a
-                  href="https://www.tiktok.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  aria-label="Follow on TikTok"
-                  data-ocid="footer.tiktok.link"
-                >
-                  <SiTiktok size={18} className="text-background/80" />
+                  <SiGoogle size={18} className="text-background/80" />
                 </a>
               </div>
-              <p className="mt-4 text-background/40 text-xs">Follow us 🍑</p>
+              <p className="mt-4 text-background/40 text-xs">
+                Search us on Google 🍑
+              </p>
             </div>
           </div>
 
