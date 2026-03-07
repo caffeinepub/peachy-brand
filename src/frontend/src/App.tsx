@@ -157,7 +157,7 @@ export default function App() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 text-primary font-medium text-sm border border-primary/25">
                 <Sparkles size={14} aria-hidden="true" />
-                New Brand Launching Soon
+                Now Live
               </span>
             </motion.div>
 
@@ -216,7 +216,7 @@ export default function App() {
                 aria-label="Shop coming soon"
               >
                 <ShoppingBag size={18} aria-hidden="true" />
-                Shop Coming Soon
+                Shop Now
               </button>
               <a
                 href="#collections"
@@ -264,7 +264,7 @@ export default function App() {
                 custom={0}
                 className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
               >
-                Coming Soon
+                Shop Now
               </motion.p>
               <motion.h2
                 variants={fadeUp}
@@ -278,8 +278,7 @@ export default function App() {
                 custom={2}
                 className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
               >
-                Our first drops are in the works. Something peachy is on the way
-                🍑
+                Fresh drops are here. Something peachy is waiting for you 🍑
               </motion.p>
             </motion.div>
 
@@ -319,7 +318,7 @@ export default function App() {
                         className="bg-white/70 text-foreground backdrop-blur-sm font-semibold text-xs border-0"
                         data-ocid={`collections.item.${col.id}`}
                       >
-                        Coming Soon
+                        New Drop
                       </Badge>
                     </div>
                   </div>
@@ -333,7 +332,7 @@ export default function App() {
                       {col.subtitle}
                     </h3>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Launching soon — stay tuned for the big reveal! ✨
+                      Available now — grab your peachy fit! ✨
                     </p>
                   </div>
                 </motion.article>
@@ -534,7 +533,7 @@ export default function App() {
                   <SiTiktok size={18} className="text-background/80" />
                 </a>
               </div>
-              <p className="mt-4 text-background/40 text-xs">Coming soon 🍑</p>
+              <p className="mt-4 text-background/40 text-xs">Follow us 🍑</p>
             </div>
           </div>
 
