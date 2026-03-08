@@ -191,6 +191,48 @@ const PERFUME = [
   },
 ];
 
+const LOTION = [
+  {
+    id: 1,
+    name: "Peachy Glow Body Lotion",
+    description:
+      "A rich, creamy lotion with peach blossom extract that leaves your skin silky soft and glowing all day!",
+    image: "/assets/generated/lotion-peachy.dim_600x600.jpg",
+    badge: "Body Care",
+    price: "$26",
+  },
+  {
+    id: 2,
+    name: "Blossom Body Lotion",
+    description:
+      "A lightweight floral lotion with a fresh peachy scent. Hydrates and softens skin beautifully!",
+    image: "/assets/generated/lotion-blossom.dim_600x600.jpg",
+    badge: "Body Care",
+    price: "$26",
+  },
+];
+
+const CANDLES = [
+  {
+    id: 1,
+    name: "Peachy Dream Candle",
+    description:
+      "A warm, cozy peach scented candle with notes of peach, vanilla, and soft jasmine. Smells like heaven!",
+    image: "/assets/generated/candle-peachy.dim_600x600.jpg",
+    badge: "Home",
+    price: "$32",
+  },
+  {
+    id: 2,
+    name: "Blossom Soy Candle",
+    description:
+      "A clean-burning soy candle with a fresh blossom and peach fragrance. Perfect for any room!",
+    image: "/assets/generated/candle-blossom.dim_600x600.jpg",
+    badge: "Home",
+    price: "$28",
+  },
+];
+
 const MAKEUP = [
   {
     id: 1,
@@ -356,6 +398,20 @@ export default function App() {
               data-ocid="nav.perfume.link"
             >
               Perfume
+            </a>
+            <a
+              href="#lotion"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.lotion.link"
+            >
+              Lotion
+            </a>
+            <a
+              href="#candles"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.candles.link"
+            >
+              Candles
             </a>
             <a
               href="#beltbags"
@@ -1274,6 +1330,180 @@ export default function App() {
               </motion.div>
             </div>
 
+            {/* ─── Lotion Section ─── */}
+            <div id="lotion" data-ocid="lotion.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Body Care
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Lotion 🧴
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Soft, silky skin with peachy body care! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {LOTION.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`lotion.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`lotion.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Candles Section ─── */}
+            <div id="candles" data-ocid="candles.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Home Fragrance
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Candles 🕯️
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Fill your space with the sweetest peachy vibes! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {CANDLES.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`candles.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`candles.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
             {/* ─── Belt Bags Section ─── */}
             <div id="beltbags" data-ocid="beltbags.section" className="mt-20">
               <motion.div
@@ -1759,6 +1989,24 @@ export default function App() {
                     data-ocid="footer.perfume.link"
                   >
                     Perfume
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#lotion"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.lotion.link"
+                  >
+                    Lotion
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#candles"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.candles.link"
+                  >
+                    Candles
                   </a>
                 </li>
                 <li>
