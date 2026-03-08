@@ -263,6 +263,66 @@ const MAKEUP = [
   },
 ];
 
+const SHOES = [
+  {
+    id: 1,
+    name: "Peachy Sneakers",
+    description:
+      "Soft peachy-pink sneakers with a white sole. So cute and comfy for everyday wear!",
+    image: "/assets/generated/shoes-sneakers.dim_600x600.jpg",
+    badge: "Shoes",
+    price: "$58",
+  },
+  {
+    id: 2,
+    name: "Blossom Sandals",
+    description:
+      "Elegant peach sandals with gold straps. Perfect for summer days and special occasions!",
+    image: "/assets/generated/shoes-sandals.dim_600x600.jpg",
+    badge: "Shoes",
+    price: "$48",
+  },
+  {
+    id: 3,
+    name: "Peachy Platform Boots",
+    description:
+      "Cute blossom-pink platform boots that add a peachy pop to any outfit!",
+    image: "/assets/generated/shoes-boots.dim_600x600.jpg",
+    badge: "Shoes",
+    price: "$72",
+  },
+];
+
+const JEWELRY = [
+  {
+    id: 1,
+    name: "Peachy Charm Necklace",
+    description:
+      "A delicate gold necklace with a sweet peach charm pendant. The perfect finishing touch to any look!",
+    image: "/assets/generated/jewelry-necklace.dim_600x600.jpg",
+    badge: "Jewelry",
+    price: "$38",
+  },
+  {
+    id: 2,
+    name: "Blossom Hoop Earrings",
+    description:
+      "Cute gold hoop earrings with tiny peach blossom flower charms. So pretty and lightweight!",
+    image: "/assets/generated/jewelry-earrings.dim_600x600.jpg",
+    badge: "Jewelry",
+    price: "$28",
+  },
+  {
+    id: 3,
+    name: "Peachy Charm Bracelet",
+    description:
+      "A dainty gold bracelet with peach and flower charms. Stack it with your friends!",
+    image: "/assets/generated/jewelry-bracelet.dim_600x600.jpg",
+    badge: "Jewelry",
+    price: "$32",
+  },
+];
+
 const COLLECTIONS = [
   {
     id: 1,
@@ -412,6 +472,20 @@ export default function App() {
               data-ocid="nav.candles.link"
             >
               Candles
+            </a>
+            <a
+              href="#shoes"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.shoes.link"
+            >
+              Shoes
+            </a>
+            <a
+              href="#jewelry"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.jewelry.link"
+            >
+              Jewelry
             </a>
             <a
               href="#beltbags"
@@ -1504,6 +1578,180 @@ export default function App() {
               </motion.div>
             </div>
 
+            {/* ─── Shoes Section ─── */}
+            <div id="shoes" data-ocid="shoes.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Step In Style
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Shoes 👟
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Peachy kicks for every occasion! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {SHOES.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`shoes.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`shoes.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Jewelry Section ─── */}
+            <div id="jewelry" data-ocid="jewelry.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Accessories
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Jewelry 💎
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Sparkly peachy jewelry to complete every look! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {JEWELRY.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`jewelry.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`jewelry.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
             {/* ─── Belt Bags Section ─── */}
             <div id="beltbags" data-ocid="beltbags.section" className="mt-20">
               <motion.div
@@ -2007,6 +2255,24 @@ export default function App() {
                     data-ocid="footer.candles.link"
                   >
                     Candles
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#shoes"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.shoes.link"
+                  >
+                    Shoes
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#jewelry"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.jewelry.link"
+                  >
+                    Jewelry
                   </a>
                 </li>
                 <li>
