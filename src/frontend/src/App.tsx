@@ -30,6 +30,16 @@ const CLOTHES = [
   },
   {
     id: 3,
+    drop: 1,
+    name: "Peachy Graphic Tee",
+    description:
+      "Cute peachy-pink graphic tee with blossom print. Trendy and fun!",
+    image: "/assets/generated/model-graphic-tee.dim_600x800.jpg",
+    badge: "Drop 1",
+    price: "$26",
+  },
+  {
+    id: 4,
     drop: 2,
     name: "Blossom Hoodie",
     description: "Cozy peach hoodie for those chill days. Super warm!",
@@ -38,7 +48,7 @@ const CLOTHES = [
     price: "$52",
   },
   {
-    id: 4,
+    id: 5,
     drop: 2,
     name: "Wide-Leg Pants",
     description: "Flowy wide-leg pants in soft blossom pink. Very comfy!",
@@ -47,7 +57,27 @@ const CLOTHES = [
     price: "$48",
   },
   {
-    id: 5,
+    id: 6,
+    drop: 2,
+    name: "Peachy Button Shirt",
+    description:
+      "Cute oversized pastel peach button-up tied at the waist. So trendy!",
+    image: "/assets/generated/model-button-shirt.dim_600x800.jpg",
+    badge: "Drop 2",
+    price: "$38",
+  },
+  {
+    id: 7,
+    drop: 3,
+    name: "Ribbed Crop Top",
+    description:
+      "Baby pink ribbed crop top with thin straps. The cutest summer look!",
+    image: "/assets/generated/model-crop-top-ribbed.dim_600x800.jpg",
+    badge: "Drop 3",
+    price: "$29",
+  },
+  {
+    id: 8,
     drop: 3,
     name: "Summer Crop Top",
     description: "Peach crop top with a butterfly detail. Fresh summer look!",
@@ -56,13 +86,62 @@ const CLOTHES = [
     price: "$32",
   },
   {
-    id: 6,
+    id: 9,
     drop: 3,
     name: "Peachy Shorts",
     description: "Sun-embroidered shorts in soft yellow peach. Love them!",
     image: "/assets/generated/model-shorts.dim_600x800.jpg",
     badge: "Drop 3",
     price: "$30",
+  },
+  {
+    id: 10,
+    drop: 4,
+    name: "Corset Top",
+    description: "Peachy-pink corset top with lace detail. Totally Y2K glam!",
+    image: "/assets/generated/model-corset-top.dim_600x800.jpg",
+    badge: "Drop 4",
+    price: "$42",
+  },
+  {
+    id: 11,
+    drop: 4,
+    name: "Mesh Crop Top",
+    description:
+      "Peachy-pink mesh long sleeve crop top. Layer it for the coolest look!",
+    image: "/assets/generated/model-mesh-crop.dim_600x800.jpg",
+    badge: "Drop 4",
+    price: "$34",
+  },
+  {
+    id: 12,
+    drop: 4,
+    name: "Floral Mini Skirt",
+    description:
+      "Flowy floral mini skirt with peach blossoms. Cottagecore perfection!",
+    image: "/assets/generated/model-floral-skirt.dim_600x800.jpg",
+    badge: "Drop 4",
+    price: "$36",
+  },
+  {
+    id: 13,
+    drop: 5,
+    name: "Peachy Blazer Set",
+    description:
+      "Wide-leg trousers and matching cropped blazer in soft peach. So chic!",
+    image: "/assets/generated/model-blazer-set.dim_600x800.jpg",
+    badge: "Drop 5",
+    price: "$72",
+  },
+  {
+    id: 14,
+    drop: 5,
+    name: "Denim Jacket",
+    description:
+      "Light peach denim jacket with embroidered flowers. The cutest outerwear!",
+    image: "/assets/generated/model-denim-jacket.dim_600x800.jpg",
+    badge: "Drop 5",
+    price: "$65",
   },
 ];
 
@@ -210,6 +289,15 @@ const LOTION = [
     badge: "Body Care",
     price: "$26",
   },
+  {
+    id: 3,
+    name: "Peachy Fresh Deodorant",
+    description:
+      "A fresh, long-lasting deodorant with a light peach blossom scent. Keeps you feeling clean and confident all day!",
+    image: "/assets/generated/deodorant-peachy.dim_600x600.jpg",
+    badge: "Body Care",
+    price: "$16",
+  },
 ];
 
 const CANDLES = [
@@ -344,6 +432,20 @@ const COLLECTIONS = [
     subtitle: "Sweet Summer",
     emoji: "☀️",
     bg: "from-[oklch(0.92_0.09_70)] to-[oklch(0.86_0.12_55)]",
+  },
+  {
+    id: 4,
+    name: "Drop 4",
+    subtitle: "Y2K Vibes",
+    emoji: "✨",
+    bg: "from-[oklch(0.88_0.08_320)] to-[oklch(0.82_0.12_300)]",
+  },
+  {
+    id: 5,
+    name: "Drop 5",
+    subtitle: "Peachy Chic",
+    emoji: "💅",
+    bg: "from-[oklch(0.90_0.07_40)] to-[oklch(0.84_0.11_35)]",
   },
 ];
 
@@ -905,7 +1007,7 @@ export default function App() {
                   custom={2}
                   className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
                 >
-                  6 pieces. All peachy. All yours. 🍑
+                  14 pieces. All peachy. All yours. 🍑
                 </motion.p>
               </motion.div>
 
@@ -1437,7 +1539,7 @@ export default function App() {
               </motion.div>
 
               <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
                 variants={stagger}
                 initial="hidden"
                 whileInView="visible"
