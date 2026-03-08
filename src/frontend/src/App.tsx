@@ -170,6 +170,27 @@ const SKINCARE = [
   },
 ];
 
+const PERFUME = [
+  {
+    id: 1,
+    name: "Peachy Bloom Eau de Parfum",
+    description:
+      "A fresh, fruity fragrance with notes of peach, jasmine, and warm vanilla. Smells like a dream!",
+    image: "/assets/generated/perfume-peachy.dim_600x600.jpg",
+    badge: "Perfume",
+    price: "$48",
+  },
+  {
+    id: 2,
+    name: "Blossom Mist Perfume",
+    description:
+      "A light floral scent with pink blossom, soft musk, and a hint of peach. So pretty and fresh!",
+    image: "/assets/generated/perfume-blossom.dim_600x600.jpg",
+    badge: "Perfume",
+    price: "$42",
+  },
+];
+
 const MAKEUP = [
   {
     id: 1,
@@ -328,6 +349,13 @@ export default function App() {
               data-ocid="nav.makeup.link"
             >
               Makeup
+            </a>
+            <a
+              href="#perfume"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.perfume.link"
+            >
+              Perfume
             </a>
             <a
               href="#beltbags"
@@ -1159,6 +1187,93 @@ export default function App() {
               </motion.div>
             </div>
 
+            {/* ─── Perfume Section ─── */}
+            <div id="perfume" data-ocid="perfume.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Signature Scents
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Perfume 🌸
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Smell as peachy as you look! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {PERFUME.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`perfume.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`perfume.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
             {/* ─── Belt Bags Section ─── */}
             <div id="beltbags" data-ocid="beltbags.section" className="mt-20">
               <motion.div
@@ -1635,6 +1750,15 @@ export default function App() {
                     data-ocid="footer.skincare.link"
                   >
                     Skincare
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#perfume"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.perfume.link"
+                  >
+                    Perfume
                   </a>
                 </li>
                 <li>
