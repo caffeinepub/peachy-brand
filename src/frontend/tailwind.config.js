@@ -118,6 +118,15 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        "ping-slow": {
+          "0%": { transform: "scale(1)", opacity: "0.6" },
+          "100%": { transform: "scale(1.5)", opacity: "0" },
+        },
+        "hero-shimmer": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -126,6 +135,8 @@ export default {
         "float-delayed": "float 6s ease-in-out infinite 2s",
         "spin-slow": "spin-slow 20s linear infinite",
         "pulse-soft": "pulse-soft 3s ease-in-out infinite",
+        "ping-slow": "ping-slow 2.5s ease-out infinite",
+        "hero-shimmer": "hero-shimmer 8s ease infinite",
       },
     },
   },

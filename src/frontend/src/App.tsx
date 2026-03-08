@@ -1,9 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
-import { ArrowDown, ShoppingBag, Sparkles } from "lucide-react";
+import { ArrowDown, ChevronDown, ShoppingBag, Sparkles } from "lucide-react";
 import { AnimatePresence, type Variants, motion } from "motion/react";
-import { SiGoogle } from "react-icons/si";
+import { useState } from "react";
+import { SiApple, SiGoogle, SiGoogleplay } from "react-icons/si";
 import { toast } from "sonner";
 import { useGetBrand } from "./hooks/useQueries";
 
@@ -15,6 +16,7 @@ const CLOTHES = [
     description: "Soft oversized tee with a peach embroidery. So cozy!",
     image: "/assets/generated/model-tshirt.dim_600x800.jpg",
     badge: "Drop 1",
+    price: "$28",
   },
   {
     id: 2,
@@ -24,6 +26,7 @@ const CLOTHES = [
       "Light floral sundress with blossom print. Perfect for summer.",
     image: "/assets/generated/model-dress.dim_600x800.jpg",
     badge: "Drop 1",
+    price: "$45",
   },
   {
     id: 3,
@@ -32,6 +35,7 @@ const CLOTHES = [
     description: "Cozy peach hoodie for those chill days. Super warm!",
     image: "/assets/generated/model-hoodie.dim_600x800.jpg",
     badge: "Drop 2",
+    price: "$52",
   },
   {
     id: 4,
@@ -40,6 +44,7 @@ const CLOTHES = [
     description: "Flowy wide-leg pants in soft blossom pink. Very comfy!",
     image: "/assets/generated/model-pants.dim_600x800.jpg",
     badge: "Drop 2",
+    price: "$48",
   },
   {
     id: 5,
@@ -48,6 +53,7 @@ const CLOTHES = [
     description: "Peach crop top with a butterfly detail. Fresh summer look!",
     image: "/assets/generated/model-croptop.dim_600x800.jpg",
     badge: "Drop 3",
+    price: "$32",
   },
   {
     id: 6,
@@ -56,6 +62,7 @@ const CLOTHES = [
     description: "Sun-embroidered shorts in soft yellow peach. Love them!",
     image: "/assets/generated/model-shorts.dim_600x800.jpg",
     badge: "Drop 3",
+    price: "$30",
   },
 ];
 
@@ -66,6 +73,7 @@ const KIDS = [
     description: "A tiny peach tee for the littlest fans. Super soft and cute!",
     image: "/assets/generated/model-kids-tshirt.dim_600x800.jpg",
     badge: "Kids",
+    price: "$22",
   },
   {
     id: 2,
@@ -73,6 +81,7 @@ const KIDS = [
     description: "Cozy peachy hoodie to keep little ones warm and stylish.",
     image: "/assets/generated/model-kids-hoodie.dim_600x800.jpg",
     badge: "Kids",
+    price: "$38",
   },
   {
     id: 3,
@@ -80,6 +89,7 @@ const KIDS = [
     description: "A flowy peach sundress for the sweetest summer days.",
     image: "/assets/generated/model-kids-dress.dim_600x800.jpg",
     badge: "Kids",
+    price: "$35",
   },
 ];
 
@@ -90,6 +100,7 @@ const TEENS = [
     description: "Oversized peach graphic tee, perfect for a casual cool look.",
     image: "/assets/generated/model-teen-tshirt.dim_600x800.jpg",
     badge: "Teens",
+    price: "$30",
   },
   {
     id: 2,
@@ -97,6 +108,7 @@ const TEENS = [
     description: "Trendy crop hoodie and wide-leg sweatpants in soft peach.",
     image: "/assets/generated/model-teen-hoodie.dim_600x800.jpg",
     badge: "Teens",
+    price: "$58",
   },
   {
     id: 3,
@@ -104,6 +116,7 @@ const TEENS = [
     description: "Flowy peach floral mini skirt for the cutest summer fits.",
     image: "/assets/generated/model-teen-skirt.dim_600x800.jpg",
     badge: "Teens",
+    price: "$36",
   },
 ];
 
@@ -115,6 +128,7 @@ const BELT_BAGS = [
       "A cute peach belt bag with a gold buckle. Perfect for on-the-go!",
     image: "/assets/generated/belt-bag-peach.dim_600x600.jpg",
     badge: "Accessory",
+    price: "$42",
   },
   {
     id: 2,
@@ -122,6 +136,67 @@ const BELT_BAGS = [
     description: "Soft pink belt bag with blossom embroidery and gold zipper.",
     image: "/assets/generated/belt-bag-pink.dim_600x600.jpg",
     badge: "Accessory",
+    price: "$42",
+  },
+];
+
+const SKINCARE = [
+  {
+    id: 1,
+    name: "Peachy Glow Moisturizer",
+    description:
+      "A rich, peachy cream that locks in moisture all day. Soft, glowing skin guaranteed!",
+    image: "/assets/generated/skincare-moisturizer.dim_600x600.jpg",
+    badge: "Skincare",
+    price: "$24",
+  },
+  {
+    id: 2,
+    name: "Blossom Serum",
+    description:
+      "A lightweight peach blossom serum that brightens and hydrates for a fresh, dewy look.",
+    image: "/assets/generated/skincare-serum.dim_600x600.jpg",
+    badge: "Skincare",
+    price: "$32",
+  },
+  {
+    id: 3,
+    name: "Peachy Lip Balm",
+    description:
+      "A peachy-pink tinted lip balm that keeps your lips soft, plump, and kissably sweet!",
+    image: "/assets/generated/skincare-lipbalm.dim_600x600.jpg",
+    badge: "Skincare",
+    price: "$12",
+  },
+];
+
+const MAKEUP = [
+  {
+    id: 1,
+    name: "Peachy Kiss Lipstick",
+    description:
+      "A creamy peachy-pink lipstick that gives your lips a gorgeous, juicy look. Long-lasting and so pretty!",
+    image: "/assets/generated/makeup-lipstick.dim_600x600.jpg",
+    badge: "Makeup",
+    price: "$18",
+  },
+  {
+    id: 2,
+    name: "Blossom Blush",
+    description:
+      "A soft peach blush that gives your cheeks a natural, glowy finish. Totally adorable!",
+    image: "/assets/generated/makeup-blush.dim_600x600.jpg",
+    badge: "Makeup",
+    price: "$22",
+  },
+  {
+    id: 3,
+    name: "Peachy Glow Eyeshadow Palette",
+    description:
+      "A dreamy palette of warm peach, gold, and coral shades. Create any look from cute to glam!",
+    image: "/assets/generated/makeup-eyeshadow.dim_600x600.jpg",
+    badge: "Makeup",
+    price: "$35",
   },
 ];
 
@@ -167,15 +242,16 @@ const stagger: Variants = {
   },
 };
 
-function handleCollectionClick(name: string) {
-  toast("Coming soon! 🍑", {
-    description: `${name} will be available when we launch. Check back soon!`,
+function handleItemClick(name: string) {
+  toast("More details coming soon! 🍑", {
+    description: `${name} will have full details when we launch. Can't wait!`,
     duration: 4000,
   });
 }
 
 export default function App() {
   const { data: brand, isLoading } = useGetBrand();
+  const [expandedDrop, setExpandedDrop] = useState<number | null>(null);
 
   const tagline = brand?.tagline ?? "Fresh fits. Peachy vibes.";
   const about =
@@ -240,6 +316,20 @@ export default function App() {
               Teens
             </a>
             <a
+              href="#skincare"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.skincare.link"
+            >
+              Skincare
+            </a>
+            <a
+              href="#makeup"
+              className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
+              data-ocid="nav.makeup.link"
+            >
+              Makeup
+            </a>
+            <a
               href="#beltbags"
               className="px-4 py-2 rounded-full text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-secondary transition-all duration-200"
               data-ocid="nav.beltbags.link"
@@ -253,6 +343,13 @@ export default function App() {
             >
               About
             </a>
+            <a
+              href="#getapp"
+              className="px-4 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary transition-all duration-200 font-semibold"
+              data-ocid="nav.getapp.link"
+            >
+              📱 Get App
+            </a>
           </nav>
         </div>
       </header>
@@ -263,18 +360,44 @@ export default function App() {
           id="home"
           className="relative min-h-[90vh] hero-gradient flex flex-col items-center justify-center px-6 py-20 overflow-hidden"
         >
-          {/* Decorative peach orbs */}
+          {/* Animated gradient shimmer overlay */}
           <div
-            className="absolute top-12 right-8 w-32 h-32 peach-orb opacity-40 animate-float"
+            className="absolute inset-0 pointer-events-none hero-shimmer"
+            aria-hidden="true"
+          />
+
+          {/* Decorative peach orbs – more and bigger */}
+          <div
+            className="absolute top-12 right-8 w-44 h-44 peach-orb opacity-40 animate-float"
             aria-hidden="true"
           />
           <div
-            className="absolute bottom-16 left-6 w-20 h-20 peach-orb opacity-30 animate-float-delayed"
+            className="absolute bottom-16 left-6 w-28 h-28 peach-orb opacity-30 animate-float-delayed"
             aria-hidden="true"
           />
           <div
-            className="absolute top-1/3 left-4 w-12 h-12 peach-orb opacity-20 animate-float"
+            className="absolute top-1/3 left-4 w-16 h-16 peach-orb opacity-20 animate-float"
             style={{ animationDelay: "1s" }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute bottom-1/3 right-12 w-20 h-20 peach-orb opacity-25 animate-float-delayed"
+            style={{ animationDelay: "0.5s" }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute top-8 left-1/4 w-10 h-10 peach-orb opacity-20 animate-float"
+            style={{ animationDelay: "1.8s" }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute bottom-8 right-1/4 w-14 h-14 peach-orb opacity-25 animate-float-delayed"
+            style={{ animationDelay: "2.2s" }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute top-2/3 left-1/3 w-8 h-8 peach-orb opacity-15 animate-float"
+            style={{ animationDelay: "3s" }}
             aria-hidden="true"
           />
 
@@ -310,26 +433,32 @@ export default function App() {
               </span>
             </motion.div>
 
-            {/* Logo */}
+            {/* Logo – bigger with pulsing ring */}
             <motion.div
               variants={fadeUp}
               custom={1}
               className="flex justify-center mb-6"
             >
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36">
+              <div className="relative w-40 h-40 sm:w-52 sm:h-52">
+                {/* Pulsing ring animation */}
+                <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping-slow" />
+                <div
+                  className="absolute -inset-3 rounded-full border border-primary/15 animate-ping-slow"
+                  style={{ animationDelay: "0.5s" }}
+                />
                 <img
                   src="/assets/generated/peachy-logo-transparent.dim_400x400.png"
                   alt="Peachy Brand"
-                  className="w-full h-full object-contain drop-shadow-peach animate-float"
+                  className="w-full h-full object-contain drop-shadow-peach animate-float relative z-10"
                 />
               </div>
             </motion.div>
 
-            {/* Brand Name */}
+            {/* Brand Name – larger */}
             <motion.h1
               variants={fadeUp}
               custom={2}
-              className="font-display text-6xl sm:text-7xl md:text-8xl font-black text-foreground tracking-tight leading-none mb-4"
+              className="font-display text-7xl sm:text-8xl md:text-9xl font-black text-foreground tracking-tight leading-none mb-4"
             >
               Peachy
               <br />
@@ -376,11 +505,11 @@ export default function App() {
               </a>
             </motion.div>
 
-            {/* Fun fruit emoji row */}
+            {/* Fun fruit emoji row – bigger */}
             <motion.div
               variants={fadeUp}
               custom={5}
-              className="mt-10 flex items-center justify-center gap-4 text-3xl select-none"
+              className="mt-10 flex items-center justify-center gap-4 text-4xl select-none"
               aria-hidden="true"
             >
               {["🍑", "🌸", "🍊", "✨", "🌺"].map((em, i) => (
@@ -397,7 +526,7 @@ export default function App() {
         </section>
 
         {/* ─── Collections Section ─── */}
-        <section id="collections" className="collections-gradient py-24 px-6">
+        <section id="collections" className="collections-gradient py-32 px-6">
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <motion.div
@@ -417,7 +546,7 @@ export default function App() {
               <motion.h2
                 variants={fadeUp}
                 custom={1}
-                className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
               >
                 Collections
               </motion.h2>
@@ -432,72 +561,161 @@ export default function App() {
 
             {/* Collection Cards */}
             <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="flex flex-col gap-6"
               variants={stagger}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
             >
-              {COLLECTIONS.map((col, idx) => (
-                <motion.article
-                  key={col.id}
-                  variants={fadeUp}
-                  custom={idx}
-                  className="group relative bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                  data-ocid={`collections.item.${col.id}`}
-                  onClick={() => handleCollectionClick(col.subtitle)}
-                >
-                  {/* Card image area */}
-                  <div
-                    className={`relative h-60 bg-gradient-to-br ${col.bg} flex items-center justify-center overflow-hidden`}
+              {COLLECTIONS.map((col, idx) => {
+                const dropClothes = CLOTHES.filter((c) => c.drop === col.id);
+                const isOpen = expandedDrop === col.id;
+                return (
+                  <motion.div
+                    key={col.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="bg-card rounded-3xl overflow-hidden shadow-soft"
+                    data-ocid={`collections.item.${col.id}`}
                   >
-                    {/* Decorative orb behind emoji */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 peach-orb opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-                    </div>
-                    <span
-                      className="relative text-7xl animate-float select-none"
-                      style={{ animationDelay: `${idx * 0.5}s` }}
+                    {/* ── Card header (always visible, clickable) ── */}
+                    <button
+                      type="button"
+                      className="group w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      aria-expanded={isOpen}
+                      onClick={() => setExpandedDrop(isOpen ? null : col.id)}
+                      data-ocid={`collections.toggle.${col.id}`}
                     >
-                      {col.emoji}
-                    </span>
-                    {/* Coming Soon badge */}
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-white/70 text-foreground backdrop-blur-sm font-semibold text-xs border-0">
-                        New Drop
-                      </Badge>
-                    </div>
-                  </div>
+                      <div className="flex flex-col sm:flex-row">
+                        {/* Image / emoji area */}
+                        <div
+                          className={`relative h-48 sm:w-52 sm:h-auto shrink-0 bg-gradient-to-br ${col.bg} flex items-center justify-center overflow-hidden`}
+                        >
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-28 h-28 peach-orb opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+                          </div>
+                          <span
+                            className="relative text-6xl animate-float select-none"
+                            style={{ animationDelay: `${idx * 0.5}s` }}
+                          >
+                            {col.emoji}
+                          </span>
+                          <div className="absolute top-3 right-3">
+                            <Badge className="bg-white/70 text-foreground backdrop-blur-sm font-semibold text-xs border-0">
+                              New Drop
+                            </Badge>
+                          </div>
+                        </div>
 
-                  {/* Card body */}
-                  <div className="p-5">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">
-                      {col.name}
-                    </p>
-                    <h3 className="font-display text-xl font-bold text-foreground">
-                      {col.subtitle}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Available now — grab your peachy fit! ✨
-                    </p>
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCollectionClick(col.subtitle);
-                      }}
-                      className="mt-4 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-sm"
-                      data-ocid={`collections.shop.button.${col.id}`}
-                    >
-                      <ShoppingBag
-                        size={15}
-                        className="mr-2"
-                        aria-hidden="true"
-                      />
-                      Shop Now
-                    </Button>
-                  </div>
-                </motion.article>
-              ))}
+                        {/* Text area */}
+                        <div className="flex-1 p-5 flex flex-col justify-center">
+                          <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">
+                            {col.name}
+                          </p>
+                          <h3 className="font-display text-2xl font-bold text-foreground">
+                            {col.subtitle}
+                          </h3>
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            {dropClothes.length} peachy pieces —{" "}
+                            {isOpen ? "tap to hide" : "tap to see the clothes!"}{" "}
+                            ✨
+                          </p>
+                          <div className="mt-4 flex items-center gap-3">
+                            <span
+                              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm shadow-sm group-hover:opacity-90 transition-opacity"
+                              data-ocid={`collections.primary_button.${col.id}`}
+                            >
+                              <ShoppingBag size={15} aria-hidden="true" />
+                              {isOpen ? "Hide Clothes" : "View Clothes"}
+                            </span>
+                            <motion.span
+                              animate={{ rotate: isOpen ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center shrink-0"
+                              aria-hidden="true"
+                            >
+                              <ChevronDown size={18} className="text-primary" />
+                            </motion.span>
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+
+                    {/* ── Expandable clothes panel ── */}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="clothes-panel"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                          data-ocid={`collections.panel.${col.id}`}
+                        >
+                          <div className="px-5 pb-6 pt-2 border-t border-border/40">
+                            <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4 mt-2">
+                              {col.name} Pieces
+                            </p>
+                            <motion.div
+                              className="grid grid-cols-2 gap-4"
+                              variants={stagger}
+                              initial="hidden"
+                              animate="visible"
+                            >
+                              {dropClothes.map((item, i) => (
+                                <motion.article
+                                  key={item.id}
+                                  variants={fadeUp}
+                                  custom={i}
+                                  className="group bg-background rounded-2xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300"
+                                  data-ocid={`collections.item.${col.id}`}
+                                >
+                                  <div className="relative aspect-[3/4] bg-secondary/30 overflow-hidden">
+                                    <img
+                                      src={item.image}
+                                      alt={item.name}
+                                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                    />
+                                    <div className="absolute top-2 right-2">
+                                      <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                                        {item.badge}
+                                      </Badge>
+                                    </div>
+                                  </div>
+                                  <div className="p-3">
+                                    <h4 className="font-display text-sm font-bold text-foreground leading-tight">
+                                      {item.name}
+                                    </h4>
+                                    <p className="mt-1 text-xs text-muted-foreground leading-snug line-clamp-2">
+                                      {item.description}
+                                    </p>
+                                    <p className="mt-2 text-sm font-bold text-primary tracking-tight">
+                                      {item.price}
+                                    </p>
+                                    <Button
+                                      onClick={() => handleItemClick(item.name)}
+                                      className="mt-2 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs py-1.5 h-auto"
+                                      data-ocid={`collections.primary_button.${col.id}`}
+                                    >
+                                      <ShoppingBag
+                                        size={11}
+                                        className="mr-1"
+                                        aria-hidden="true"
+                                      />
+                                      Shop Now
+                                    </Button>
+                                  </div>
+                                </motion.article>
+                              ))}
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
             {/* ─── Our Clothes ─── */}
@@ -520,7 +738,7 @@ export default function App() {
                 <motion.h2
                   variants={fadeUp}
                   custom={1}
-                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
                 >
                   Our Clothes
                 </motion.h2>
@@ -546,7 +764,7 @@ export default function App() {
                     key={item.id}
                     variants={fadeUp}
                     custom={idx}
-                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
                     data-ocid={`clothes.item.${item.id}`}
                   >
                     {/* Image area */}
@@ -572,10 +790,13 @@ export default function App() {
                       <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
                         {item.description}
                       </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
                       <Button
-                        onClick={() => handleCollectionClick(item.name)}
+                        onClick={() => handleItemClick(item.name)}
                         className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
-                        data-ocid={`clothes.shop.button.${item.id}`}
+                        data-ocid={`clothes.primary_button.${item.id}`}
                       >
                         <ShoppingBag
                           size={13}
@@ -609,7 +830,7 @@ export default function App() {
                 <motion.h2
                   variants={fadeUp}
                   custom={1}
-                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
                 >
                   Kids 🧒
                 </motion.h2>
@@ -634,7 +855,7 @@ export default function App() {
                     key={item.id}
                     variants={fadeUp}
                     custom={idx}
-                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
                     data-ocid={`kids.item.${item.id}`}
                   >
                     <div className="relative aspect-[3/4] bg-secondary/30 overflow-hidden">
@@ -656,10 +877,13 @@ export default function App() {
                       <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
                         {item.description}
                       </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
                       <Button
-                        onClick={() => handleCollectionClick(item.name)}
+                        onClick={() => handleItemClick(item.name)}
                         className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
-                        data-ocid={`kids.shop.button.${item.id}`}
+                        data-ocid={`kids.primary_button.${item.id}`}
                       >
                         <ShoppingBag
                           size={13}
@@ -693,7 +917,7 @@ export default function App() {
                 <motion.h2
                   variants={fadeUp}
                   custom={1}
-                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
                 >
                   Teens 🧡
                 </motion.h2>
@@ -718,7 +942,7 @@ export default function App() {
                     key={item.id}
                     variants={fadeUp}
                     custom={idx}
-                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
                     data-ocid={`teens.item.${item.id}`}
                   >
                     <div className="relative aspect-[3/4] bg-secondary/30 overflow-hidden">
@@ -740,10 +964,187 @@ export default function App() {
                       <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
                         {item.description}
                       </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
                       <Button
-                        onClick={() => handleCollectionClick(item.name)}
+                        onClick={() => handleItemClick(item.name)}
                         className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
-                        data-ocid={`teens.shop.button.${item.id}`}
+                        data-ocid={`teens.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Skincare Section ─── */}
+            <div id="skincare" data-ocid="skincare.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Beauty Essentials
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Skincare 🌸
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Glow up with peachy skincare made just for you! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {SKINCARE.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`skincare.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`skincare.primary_button.${item.id}`}
+                      >
+                        <ShoppingBag
+                          size={13}
+                          className="mr-1.5"
+                          aria-hidden="true"
+                        />
+                        Shop Now
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─── Makeup Section ─── */}
+            <div id="makeup" data-ocid="makeup.section" className="mt-20">
+              <motion.div
+                className="text-center mb-12"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-3"
+                >
+                  Beauty Glam
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
+                >
+                  Makeup 💄
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="mt-4 text-lg text-muted-foreground max-w-md mx-auto"
+                >
+                  Peachy glam looks for every occasion! ✨
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {MAKEUP.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    variants={fadeUp}
+                    custom={idx}
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
+                    data-ocid={`makeup.item.${item.id}`}
+                  >
+                    <div className="relative aspect-square bg-secondary/30 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-primary text-primary-foreground font-semibold text-xs border-0 shadow-sm">
+                          {item.badge}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
+                      <Button
+                        onClick={() => handleItemClick(item.name)}
+                        className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
+                        data-ocid={`makeup.primary_button.${item.id}`}
                       >
                         <ShoppingBag
                           size={13}
@@ -777,7 +1178,7 @@ export default function App() {
                 <motion.h2
                   variants={fadeUp}
                   custom={1}
-                  className="font-display text-5xl sm:text-6xl font-black text-foreground tracking-tight"
+                  className="font-display text-6xl sm:text-7xl font-black text-foreground tracking-tight"
                 >
                   Belt Bags 👜
                 </motion.h2>
@@ -802,7 +1203,7 @@ export default function App() {
                     key={item.id}
                     variants={fadeUp}
                     custom={idx}
-                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300"
+                    className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-peach-lg hover:-translate-y-1 transition-all duration-300"
                     data-ocid={`beltbags.item.${item.id}`}
                   >
                     <div className="relative aspect-square bg-secondary/30 overflow-hidden">
@@ -824,10 +1225,13 @@ export default function App() {
                       <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-snug line-clamp-2">
                         {item.description}
                       </p>
+                      <p className="mt-2 text-base font-bold text-primary tracking-tight">
+                        {item.price}
+                      </p>
                       <Button
-                        onClick={() => handleCollectionClick(item.name)}
+                        onClick={() => handleItemClick(item.name)}
                         className="mt-3 w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 font-semibold text-xs sm:text-sm"
-                        data-ocid={`beltbags.shop.button.${item.id}`}
+                        data-ocid={`beltbags.primary_button.${item.id}`}
                       >
                         <ShoppingBag
                           size={13}
@@ -847,7 +1251,7 @@ export default function App() {
         {/* ─── About Section ─── */}
         <section
           id="about"
-          className="relative py-24 px-6 overflow-hidden bg-background"
+          className="relative py-32 px-6 overflow-hidden bg-background"
         >
           {/* Decorative background text */}
           <div
@@ -948,6 +1352,212 @@ export default function App() {
             </motion.div>
           </div>
         </section>
+        {/* ─── App Download Section ─── */}
+        <section
+          id="getapp"
+          data-ocid="appdownload.section"
+          className="relative py-32 px-6 overflow-hidden hero-gradient"
+        >
+          {/* Background orbs */}
+          <div
+            className="absolute top-8 right-16 w-40 h-40 peach-orb opacity-30 animate-float"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute bottom-8 left-10 w-24 h-24 peach-orb opacity-25 animate-float-delayed"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute top-1/2 right-4 w-12 h-12 peach-orb opacity-15 animate-float"
+            style={{ animationDelay: "1.5s" }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute -top-10 left-1/3 w-56 h-56 peach-orb opacity-10 animate-float-delayed"
+            style={{ animationDelay: "0.8s" }}
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 max-w-5xl mx-auto">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+            >
+              {/* Left: text & buttons */}
+              <div>
+                <motion.p
+                  variants={fadeUp}
+                  custom={0}
+                  className="text-sm font-semibold text-primary uppercase tracking-widest mb-4"
+                >
+                  Coming Soon
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  custom={1}
+                  className="font-display text-7xl sm:text-8xl font-black text-foreground tracking-tight leading-none mb-5"
+                >
+                  Get the
+                  <br />
+                  <span className="text-primary">App</span>
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  custom={2}
+                  className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-md"
+                >
+                  Shop Peachy Brand anywhere, anytime. Your fits, in your
+                  pocket. 🍑
+                </motion.p>
+
+                {/* Download Buttons */}
+                <motion.div
+                  variants={fadeUp}
+                  custom={3}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
+                  {/* Apple App Store */}
+                  <a
+                    href="https://apps.apple.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-ocid="appdownload.appstore.button"
+                    className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-foreground text-background font-medium hover:scale-105 active:scale-95 transition-all duration-200 hover:opacity-90 shadow-lg"
+                    aria-label="Download on the App Store"
+                  >
+                    <SiApple
+                      size={28}
+                      className="shrink-0"
+                      aria-hidden="true"
+                    />
+                    <div className="text-left">
+                      <p className="text-xs text-background/60 leading-none mb-0.5">
+                        Download on the
+                      </p>
+                      <p className="text-lg font-bold leading-none">
+                        App Store
+                      </p>
+                    </div>
+                  </a>
+
+                  {/* Google Play */}
+                  <a
+                    href="https://play.google.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-ocid="appdownload.googleplay.button"
+                    className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-foreground text-background font-medium hover:scale-105 active:scale-95 transition-all duration-200 hover:opacity-90 shadow-lg"
+                    aria-label="Get it on Google Play"
+                  >
+                    <SiGoogleplay
+                      size={26}
+                      className="shrink-0"
+                      aria-hidden="true"
+                    />
+                    <div className="text-left">
+                      <p className="text-xs text-background/60 leading-none mb-0.5">
+                        Get it on
+                      </p>
+                      <p className="text-lg font-bold leading-none">
+                        Google Play
+                      </p>
+                    </div>
+                  </a>
+                </motion.div>
+              </div>
+
+              {/* Right: decorative phone illustration */}
+              <motion.div
+                variants={fadeUp}
+                custom={2}
+                className="flex justify-center md:justify-end"
+              >
+                <div className="relative">
+                  {/* Outer glow ring */}
+                  <div className="absolute inset-0 -m-6 rounded-[3.5rem] bg-primary/10 blur-xl" />
+                  {/* Phone shape */}
+                  <div className="relative w-52 h-96 bg-foreground rounded-[3rem] shadow-2xl flex flex-col items-center justify-center overflow-hidden border-4 border-foreground/80">
+                    {/* Screen */}
+                    <div className="absolute inset-2 rounded-[2.5rem] bg-gradient-to-b from-[oklch(0.92_0.10_50)] to-[oklch(0.82_0.16_45)] overflow-hidden">
+                      {/* Status bar notch */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-foreground rounded-b-2xl" />
+                      {/* App content preview */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pt-6">
+                        <img
+                          src="/assets/generated/peachy-logo-transparent.dim_400x400.png"
+                          alt="Peachy app icon"
+                          className="w-16 h-16 object-contain drop-shadow-peach animate-float"
+                        />
+                        <p className="font-display text-foreground text-lg font-black tracking-tight">
+                          Peachy
+                        </p>
+                        <p className="font-display text-foreground/70 text-xs font-medium">
+                          Fresh fits. Peachy vibes.
+                        </p>
+                        <div className="mt-2 px-5 py-1.5 rounded-full bg-foreground text-background text-xs font-bold">
+                          Open App
+                        </div>
+                        {/* Mini product thumbnails */}
+                        <div className="flex gap-2 mt-3">
+                          {[
+                            {
+                              src: "/assets/generated/model-tshirt.dim_600x800.jpg",
+                              label: "tshirt",
+                            },
+                            {
+                              src: "/assets/generated/model-dress.dim_600x800.jpg",
+                              label: "dress",
+                            },
+                            {
+                              src: "/assets/generated/model-hoodie.dim_600x800.jpg",
+                              label: "hoodie",
+                            },
+                          ].map((item) => (
+                            <div
+                              key={item.label}
+                              className="w-10 h-12 rounded-xl overflow-hidden shadow-sm border border-white/20"
+                            >
+                              <img
+                                src={item.src}
+                                alt=""
+                                className="w-full h-full object-cover object-top"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    {/* Home indicator */}
+                    <div className="absolute bottom-3 w-16 h-1 rounded-full bg-background/30" />
+                  </div>
+
+                  {/* Floating emoji badges */}
+                  <div
+                    className="absolute -top-4 -right-4 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center text-2xl animate-float"
+                    style={{ animationDelay: "0.3s" }}
+                  >
+                    🍑
+                  </div>
+                  <div
+                    className="absolute -bottom-4 -left-4 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center text-2xl animate-float-delayed"
+                    style={{ animationDelay: "0.9s" }}
+                  >
+                    ✨
+                  </div>
+                  <div
+                    className="absolute top-1/3 -right-6 w-10 h-10 rounded-xl bg-white shadow-md flex items-center justify-center text-lg animate-float"
+                    style={{ animationDelay: "1.4s" }}
+                  >
+                    📱
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
       </main>
 
       {/* ─── Toast Notifications ─── */}
@@ -1016,6 +1626,15 @@ export default function App() {
                     data-ocid="footer.teens.link"
                   >
                     Teens
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#skincare"
+                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    data-ocid="footer.skincare.link"
+                  >
+                    Skincare
                   </a>
                 </li>
                 <li>

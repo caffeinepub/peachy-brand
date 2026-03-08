@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/assets/fonts/Fraunces.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/assets/fonts/CabinetGrotesk.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --radius: 1rem;
@@ -174,5 +190,19 @@
     );
     border-radius: 50%;
     filter: blur(1px);
+  }
+
+  /* Hero animated shimmer overlay */
+  .hero-shimmer {
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      oklch(0.92 0.08 52 / 0.15) 25%,
+      oklch(0.95 0.06 65 / 0.10) 50%,
+      oklch(0.90 0.10 42 / 0.15) 75%,
+      transparent 100%
+    );
+    background-size: 300% 300%;
+    animation: hero-shimmer 8s ease infinite;
   }
 }
